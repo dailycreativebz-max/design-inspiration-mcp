@@ -1,0 +1,38 @@
+{
+  "name": "design-inspiration-mcp",
+  "version": "3.5.0",
+  "description": "Premium MCP server for design engineering. Integrated with Google Stitch and High-end Design Taste guidelines.",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "design-inspiration-mcp": "src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "files": [
+    "src/",
+    "design-md/",
+    "README.md"
+  ],
+  "keywords": [
+    "mcp",
+    "design",
+    "inspiration",
+    "google-stitch",
+    "ui",
+    "ux",
+    "design-tokens",
+    "premium-ui"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "design-inspiration-mcp",
+  "version": "3.5.0",
+  "description": "Premium design engineering MCP server. Integrated with Google Stitch, High-end Design Taste, and curated brand design systems.",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "design-inspiration": {
+      "command": "node",
+      "args": [
+        "${extensionPath}${/}src${/}index.js",
+        "--docs-path",
+        "${extensionPath}${/}design-md"
+      ],
+      "cwd": "${extensionPath}"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+# Policy for Read-Only Discovery Tools
+# Allows these tools to run without confirmation for a better user experience.
+
+[[rule]]
+name = "Allow Design Discovery Tools"
+tools = [
+  "browse_awwwards",
+  "browse_dribbble",
+  "browse_siteinspire",
+  "browse_css_awards",
+  "browse_behance",
+  "browse_landbook",
+  "browse_godly",
+  "browse_mobbin",
+  "browse_brand_designs",
+  "browse_stitch_projects",
+  "search_inspiration",
+  "get_design_skills",
+  "get_color_palettes",
+  "get_typography_pairings",
+  "get_layout_patterns",
+  "get_component_snippets",
+  "get_animation_library",
+  "get_micro_copy",
+  "get_accessibility_guide",
+  "get_premium_taste",
+  "get_r3f_patterns"
+]
+allow = true
+priority = "tier2"
