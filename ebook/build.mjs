@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Build engine for The Emergency Food Playbook.
 // Assembles data/*.mjs into U.S. Letter print pages under ebook/book/.
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
 import { FRONT_MATTER } from "./data/frontmatter.mjs";
 import { CH_01_04 } from "./data/ch01-04.mjs";
 import { CH_05_07 } from "./data/ch05-07.mjs";
@@ -357,6 +357,7 @@ function navHtml(current) {
   <label for="page-jump" style="position:absolute;left:-9999px;">Jump to page</label>
   <select id="page-jump" onchange="if(this.value)location.href=this.value">${opts}</select>
   <a class="barlink" href="book.html">Full book (print / PDF)</a>
+  <a class="barlink barlink--pdf" href="The-Emergency-Food-Playbook.pdf" download>Download PDF ↓</a>
   <span class="kbd-hint">Turn pages with <kbd>←</kbd> <kbd>→</kbd></span>
 </nav>`;
 }
@@ -416,6 +417,7 @@ ${navHtml("")}
     <div class="hero__cta reveal-on-load reveal-4">
       <a class="btn btn--primary" href="cover.html">Open the book</a>
       <a class="btn btn--ghost" href="book.html">Full book — print / PDF</a>
+      <a class="btn btn--amber" href="The-Emergency-Food-Playbook.pdf" download>Download full PDF ↓</a>
     </div>
   </div>
   <aside class="hero__side" aria-label="Book highlights">
@@ -430,6 +432,13 @@ ${navHtml("")}
 </main>
 ${READER_JS.replace("querySelectorAll(\".will-reveal\")", "querySelectorAll(\".will-reveal, .hero__stat, .panel\")")}
 </body></html>`);
+
+// Expose the print PDF beside the reader for one-click download.
+try {
+  if (existsSync("ebook/The-Emergency-Food-Playbook.pdf")) {
+    copyFileSync("ebook/The-Emergency-Food-Playbook.pdf", `${OUT}/The-Emergency-Food-Playbook.pdf`);
+  }
+} catch { /* PDF not built yet */ }
 
 console.log(`Built ${sheets.length} sheets across ${new Set(sheets.map(s => s.slug)).size} page files + full book.`);
 }
