@@ -1,0 +1,94 @@
+[
+  {
+    "name": "Editorial Power",
+    "style": "editorial",
+    "display_font": {
+      "name": "Playfair Display",
+      "weights": "400,700,900",
+      "type": "serif"
+    },
+    "body_font": {
+      "name": "Source Serif 4",
+      "weights": "300,400,600",
+      "type": "serif"
+    },
+    "google_import": "@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@300;400;600&display=swap');",
+    "css_usage": "h1, h2 { font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: -0.02em; }\nbody { font-family: 'Source Serif 4', serif; font-weight: 400; line-height: 1.7; }",
+    "character": "Timeless editorial feel. Great for magazines, luxury brands, long-form content.",
+    "style_tags": [
+      "editorial",
+      "luxury",
+      "classic",
+      "serif"
+    ]
+  },
+  {
+    "name": "Dark Luxury",
+    "style": "luxury brand",
+    "display_font": {
+      "name": "Cormorant Garamond",
+      "weights": "300;400;600",
+      "type": "serif"
+    },
+    "body_font": {
+      "name": "Jost",
+      "weights": "300;400;500",
+      "type": "sans-serif"
+    },
+    "google_import": "@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap');",
+    "css_usage": "h1, h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 0.08em; text-transform: uppercase; }\nbody { font-family: 'Jost', sans-serif; font-weight: 300; letter-spacing: 0.02em; }",
+    "character": "Ultra-refined luxury. Thin serif display with geometric sans body. Think fashion houses.",
+    "style_tags": [
+      "luxury brand",
+      "fashion",
+      "editorial",
+      "premium"
+    ]
+  },
+  {
+    "name": "Academic Gravitas",
+    "style": "academic",
+    "display_font": {
+      "name": "Libre Baskerville",
+      "weights": "400;700",
+      "type": "serif"
+    },
+    "body_font": {
+      "name": "Libre Franklin",
+      "weights": "300;400;500",
+      "type": "sans-serif"
+    },
+    "google_import": "@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Libre+Franklin:wght@300;400;500&display=swap');",
+    "css_usage": "h1, h2 { font-family: 'Libre Baskerville', serif; font-weight: 700; }\nbody { font-family: 'Libre Franklin', sans-serif; font-weight: 400; line-height: 1.75; }",
+    "character": "Trustworthy and scholarly. Perfect for research platforms, publishing, education.",
+    "style_tags": [
+      "academic",
+      "education",
+      "research",
+      "editorial"
+    ]
+  },
+  {
+    "name": "Retro Grotesque",
+    "style": "vintage",
+    "display_font": {
+      "name": "Cabinet Grotesk",
+      "weights": "700;800;900",
+      "type": "sans-serif"
+    },
+    "body_font": {
+      "name": "Satoshi",
+      "weights": "400;500",
+      "type": "sans-serif"
+    },
+    "google_import": "/* Cabinet Grotesk & Satoshi via Fontshare: */\n@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800,900&f[]=satoshi@400,500&display=swap');",
+    "css_usage": "h1 { font-family: 'Cabinet Grotesk', sans-serif; font-weight: 900; letter-spacing: -0.05em; }\nbody { font-family: 'Satoshi', sans-serif; font-weight: 400; }",
+    "character": "Retro grotesque revival. Cabinet Grotesk has a distinct ink-trap personality.",
+    "style_tags": [
+      "vintage",
+      "retro",
+      "editorial",
+      "bold"
+    ]
+  }
+]

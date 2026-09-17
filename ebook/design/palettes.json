@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Moss & Stone",
+    "mood": "earthy organic",
+    "colors": [
+      {
+        "name": "Background",
+        "hex": "#F5F0E8",
+        "role": "bg-primary"
+      },
+      {
+        "name": "Warm White",
+        "hex": "#FAF7F2",
+        "role": "bg-secondary"
+      },
+      {
+        "name": "Moss",
+        "hex": "#5C7A5C",
+        "role": "accent"
+      },
+      {
+        "name": "Stone",
+        "hex": "#8B7355",
+        "role": "accent-warm"
+      },
+      {
+        "name": "Text",
+        "hex": "#2C2416",
+        "role": "text-primary"
+      },
+      {
+        "name": "Muted",
+        "hex": "#7A6E60",
+        "role": "text-secondary"
+      }
+    ],
+    "css_vars": "--bg: #F5F0E8; --surface: #FAF7F2; --moss: #5C7A5C; --stone: #8B7355; --text: #2C2416;",
+    "mood_tags": [
+      "earthy organic",
+      "natural",
+      "sustainable",
+      "warm"
+    ],
+    "use_cases": "Sustainability brands, organic food, wellness, outdoor"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Page Load Stagger Reveal",
+    "category": "entrance",
+    "trigger": "on-load",
+    "difficulty": "beginner",
+    "description": "Hero content items reveal sequentially on page load. Creates a polished first impression.",
+    "css": "@keyframes fadeUp {\n  from { opacity: 0; transform: translateY(30px); }\n  to   { opacity: 1; transform: translateY(0); }\n}\n.reveal { animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }\n.reveal-1 { animation-delay: 0.1s; }\n.reveal-2 { animation-delay: 0.2s; }\n.reveal-3 { animation-delay: 0.3s; }\n.reveal-4 { animation-delay: 0.4s; }",
+    "html": "<h1 class=\"reveal reveal-1\">Big Headline</h1>\n<p  class=\"reveal reveal-2\">Subheading text here</p>\n<div class=\"reveal reveal-3\"><!-- CTA buttons --></div>",
+    "notes": "Use cubic-bezier(0.22, 1, 0.36, 1) for that satisfying overshoot. Adjust delay for more/less cascade."
+  }
+]

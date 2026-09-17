@@ -210,8 +210,27 @@ def list_flow(node, parent_style):
         flows.append(Paragraph(esc(bullet) + text_of(li, "li"), sty))
     return flows
 
+def op_flow(node):
+    flows = [Spacer(1, 30)]
+    for ch in node.children:
+        if not isinstance(ch, Node): continue
+        c = ch.attrs.get("class", "")
+        if "kicker" in c: flows.append(Paragraph(text_of(ch, "k"), S["kicker"]))
+        elif "op__title" in c:
+            flows.append(Paragraph(text_of(ch, "t"), ParagraphStyle("op-h1", parent=S["h1"], fontSize=32, leading=35)))
+        elif "op__rule" in c:
+            rule = Table([[""]], colWidths=[2.8 * inch], rowHeights=[4])
+            rule.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), TOMATO)]))
+            flows.extend([Spacer(1, 10), rule, Spacer(1, 12)])
+        elif "op__dek" in c:
+            flows.append(Paragraph(text_of(ch, "d"), ParagraphStyle("op-dek", parent=S["lede"], fontName="Serif-Italic", textColor=GRAY, fontSize=12.2, leading=17)))
+    flows.append(Spacer(1, 12))
+    return flows
+
 def div_flow(node):
     c = node.attrs.get("class", "")
+    if "op" == c.strip() or c.split()[0:1] == ["op"]:
+        return op_flow(node)
     if "callout" in c: return [callout_flow(node, c)]
     if "banner" in c: return [banner_flow(node)]
     if "formula" in c: return [formula_flow(node)]
@@ -501,26 +520,10 @@ def recipe_grid_flow(node):
         flows.append(g)
     return flows
 
-# ── Chapter opener ───────────────────────────────────────────────────────────
-def opener_flows(sheet):
-    flows = [Spacer(1, 26)]
-    flows.append(Paragraph(f"CHAPTER {sheet['chapter']}", S["kicker"]))
-    flows.append(Paragraph(esc(sheet["title"]), ParagraphStyle("op-h1", parent=S["h1"], fontSize=31, leading=34)))
-    rule = Table([[""]], colWidths=[2.6 * inch], rowHeights=[4])
-    rule.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), TOMATO)]))
-    flows.extend([Spacer(1, 8), rule, Spacer(1, 14)])
-    dek = sheet.get("dek")
-    if dek:
-        flows.append(Paragraph(esc(dek), ParagraphStyle("op-dek", parent=S["lede"], textColor=GRAY)))
-    flows.append(Spacer(1, 10))
-    return flows
-
 # ── Sheet → flowables ────────────────────────────────────────────────────────
 def sheet_flows(sheet):
     root = parse_html(sheet["body"])
     flows = []
-    if sheet.get("chapter"):
-        flows.extend(opener_flows(sheet))
     for ch in root.children:
         if isinstance(ch, str):
             if ch.strip(): flows.append(Paragraph(esc(ch.strip()), S["body"]))

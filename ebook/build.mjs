@@ -178,6 +178,13 @@ function recipeIndexSheets(page) {
 // ── Expand content placeholders into sheets ──────────────────────────────────
 function expandPage(page) {
   const sheets = [];
+  if (page.chapter) {
+    const opener = {
+      slug: `${page.slug}-op`, group: page.group, nav: page.nav, chapter: page.chapter, title: page.title,
+      body: `<div class="op"><div class="kicker">Chapter ${page.chapter}</div><h1 class="op__title">${page.title}</h1><div class="op__rule"></div><p class="op__dek">${page.dek || ""}</p></div>`,
+    };
+    return [opener, ...expandPage({ ...page, chapter: 0 })];
+  }
   let body = page.body;
   const m = body.match(/\{\{recipes:cat=(\w+)\}\}/);
   if (m) {
@@ -240,11 +247,17 @@ for (const s of sheets) {
 const tocSheet = sheets.find(s => s.slug === "contents");
 const front = [], system = [], back = [];
 let bodyStarted = false;
+const seenChapter = new Set();
 for (const s of sheets) {
   if (s.chapter === 1) bodyStarted = true;
   if (!s.slug || ["cover", "contents"].includes(s.slug)) continue;
   const label = (s.nav || s.title || "").replace(/&amp;/g, "&");
-  if (s.chapter) system.push({ t: `${s.chapter}. ${s.title}`, pg: s.folio });
+  if (s.chapter) {
+    if (!seenChapter.has(s.chapter)) {
+      seenChapter.add(s.chapter);
+      system.push({ t: `${s.chapter}. ${s.title}`, pg: s.folio });
+    }
+  }
   else if (s.group === "Back Matter") back.push({ t: label, pg: s.folio });
   else if (!bodyStarted) front.push({ t: label, pg: s.folio });
 }
@@ -276,12 +289,12 @@ function sheetHtml(s, opts = {}) {
       <span>${BOOK_TITLE} · ${BOOK_SUB}</span>
       <span class="folio">${s.folio || ""}</span>
     </div>`;
-  return `<section class="sheet ${s.cls || ""}" id="${s.slug || ""}">
+  return `<section class="sheet will-reveal ${s.cls || ""}" id="${s.slug || ""}">
   ${header}<div class="sheet__body">${s.body}</div>${footer}
 </section>`;
 }
 
-function pageDoc(s, { fullNav = false, navHtml = "" } = {}) {
+function pageDoc(s) {
   const idx = sheets.indexOf(s);
   let prev = null, next = null;
   for (let i = idx - 1; i >= 0; i--) if (sheets[i].slug) { prev = sheets[i]; break; }
@@ -292,31 +305,66 @@ function pageDoc(s, { fullNav = false, navHtml = "" } = {}) {
 <title>${(s.title || s.nav || BOOK_TITLE).replace(/&amp;/g, "&")} — ${BOOK_TITLE}</title>
 <link rel="stylesheet" href="book.css">
 </head><body>
-${navHtml}
+<a class="skip-link" href="#${s.slug || "top"}">Skip to page content</a>
+<div class="progress" aria-hidden="true"></div>
+${navHtml(s.slug)}
 ${sheetHtml(s)}
 <nav class="reader-nav" aria-label="Book navigation">
   ${prev ? `<a href="${prev.slug}.html" rel="prev">← ${prev.nav ? prev.nav.replace(/&amp;/g, "&") : "Cover"}</a>` : "<a href=\"index.html\">Reader home</a>"}
   ${next ? `<a class="next" href="${next.slug}.html" rel="next">${next.nav ? next.nav.replace(/&amp;/g, "&") : ""} →</a>` : "<span></span>"}
 </nav>
+${READER_JS}
 </body></html>`;
 }
 
 mkdirSync(OUT, { recursive: true });
 
+// Reader chrome: toolbar + behavior script (scroll reveal, keys, progress)
+const READER_JS = `<script>
+(function(){
+  document.documentElement.classList.add("js");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // progress bar
+  var bar = document.querySelector(".progress");
+  function prog(){ var h = document.documentElement; var max = h.scrollHeight - h.clientHeight; bar.style.width = (max>0 ? (h.scrollTop||document.body.scrollTop)/max*100 : 0) + "%"; }
+  addEventListener("scroll", prog, {passive:true}); prog();
+  // scroll reveal
+  if (!reduce && "IntersectionObserver" in window) {
+    var els = document.querySelectorAll(".will-reveal");
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("is-in"); io.unobserve(e.target); } });
+    }, {threshold: 0.06});
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll(".will-reveal").forEach(function(el){ el.classList.add("is-in"); });
+  }
+  // keyboard paging
+  addEventListener("keydown", function(ev){
+    if (ev.target && /select|input|textarea/i.test(ev.target.tagName)) return;
+    var n = document.querySelector(".reader-nav");
+    if (!n) return;
+    if (ev.key === "ArrowRight") { var nx = n.querySelector("a.next"); if (nx) nx.click(); }
+    if (ev.key === "ArrowLeft")  { var pv = n.querySelector('a[rel="prev"]'); if (pv) pv.click(); }
+  });
+})();
+<\/script>`;
+
 // Nav shared by all pages
-const navOptions = sheets.filter(s => s.slug).map(s => `<option value="${s.slug}.html">${s.folio ? `${s.folio} · ` : ""}${(s.nav || s.title || "Cover").replace(/&amp;/g, "&")}</option>`).join("");
-const navHtml = `<nav class="site-nav" aria-label="Book sections">
-  <b>THE EMERGENCY FOOD PLAYBOOK</b>
-  <label class="visually-hidden" for="page-jump" style="position:absolute;left:-9999px;">Jump to page</label>
-  <select id="page-jump" onchange="if(this.value)location.href=this.value">${navOptions}</select>
-  <a href="book.html">Print the full book (PDF)</a>
-  <a href="index.html">Reader home</a>
+function navHtml(current) {
+  const opts = sheets.filter(s => s.slug).map(s => `<option value="${s.slug}.html"${s.slug===current?" selected":""}>${s.folio ? `${s.folio} · ` : ""}${(s.nav || s.title || "Cover").replace(/&amp;/g, "&")}</option>`).join("");
+  return `<nav class="reader-bar" aria-label="Reader">
+  <a class="brand" href="index.html" style="text-decoration:none;"><b>THE EMERGENCY FOOD PLAYBOOK</b><span>Food Opsec</span></a>
+  <label for="page-jump" style="position:absolute;left:-9999px;">Jump to page</label>
+  <select id="page-jump" onchange="if(this.value)location.href=this.value">${opts}</select>
+  <a class="barlink" href="book.html">Full book (print / PDF)</a>
+  <span class="kbd-hint">Turn pages with <kbd>←</kbd> <kbd>→</kbd></span>
 </nav>`;
+}
 
 // Individual pages
 for (const s of sheets) {
   if (!s.slug) continue;
-  writeFileSync(`${OUT}/${s.slug}.html`, pageDoc(s, { navHtml }));
+  writeFileSync(`${OUT}/${s.slug}.html`, pageDoc(s));
 }
 
 // Full single-file book (for printing to PDF)
@@ -327,7 +375,7 @@ writeFileSync(`${OUT}/book.html`, `<!DOCTYPE html>
 <title>${BOOK_TITLE} — Full Book (print to PDF)</title>
 <link rel="stylesheet" href="book.css">
 </head><body>
-${navHtml}
+${navHtml("")}
 ${allSheets}
 <p class="fine muted no-print" style="text-align:center; padding:20px;">End of book. Use your browser's Print → Save as PDF, paper size U.S. Letter, margins: none (the book supplies its own).</p>
 </body></html>`);
@@ -341,10 +389,13 @@ for (const s of sheets) {
   const g = s.group || "Front Matter";
   (groups[g] ||= []).push(s);
 }
-const tocHtml = Object.entries(groups).map(([g, list]) => `
+const panelHtml = list => list.map(([g, sec]) => `
   <div class="toc-section"><h3>${g.replace(/&amp;/g, "&")}</h3>
-  ${list.map(s => `<div class="toc-row"><a class="t" style="text-decoration:none;" href="${s.slug}.html">${(s.nav || s.title).replace(/&amp;/g, "&")}</a><span class="dots"></span><span class="pg">${s.folio}</span></div>`).join("")}
+  ${sec.map(s => `<div class="toc-row"><a class="t" style="text-decoration:none;" href="${s.slug}.html">${(s.nav || s.title).replace(/&amp;/g, "&")}</a><span class="dots"></span><span class="pg">${s.folio}</span></div>`).join("")}
   </div>`).join("");
+const groupEntries = Object.entries(groups);
+const tocHtmlFirstHalf = panelHtml(groupEntries.filter(([g]) => g === "Front Matter" || g.startsWith("Chapter")));
+const tocHtmlSecondHalf = panelHtml(groupEntries.filter(([g]) => g === "Back Matter"));
 
 writeFileSync(`${OUT}/index.html`, `<!DOCTYPE html>
 <html lang="en"><head>
@@ -352,28 +403,32 @@ writeFileSync(`${OUT}/index.html`, `<!DOCTYPE html>
 <title>${BOOK_TITLE} — Reader</title>
 <link rel="stylesheet" href="book.css">
 </head><body>
-${navHtml}
-<section class="sheet" style="min-height:auto;">
-  <div class="sheet__body">
-    <div class="kicker">Food Opsec · Household Resilience Series</div>
-    <h1 style="font-size:34px; line-height:1.08; max-width:6.6in;">A practical American emergency-food system for households that want affordable meals — not expensive survival buckets.</h1>
-    <p class="lede" style="margin-top:12px;">The Emergency Food Playbook shows an ordinary household what to buy, how much, what to eat first, how to cook without power, and how to keep it all fresh on a grocery budget — across 30 days and 70 tested-style recipes.</p>
-    <div style="display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 4px;">
-      <span class="chip">70 shelf-stable recipes</span>
-      <span class="chip">No-cook · hot-water · one-pot</span>
-      <span class="chip">10 disaster playbooks</span>
-      <span class="chip">Printable worksheets</span>
-      <span class="chip chip--amber">Sourced to USDA · FEMA · CDC · EPA · FDA</span>
-    </div>
-    <div style="display:flex; gap:12px; margin-top:16px; flex-wrap:wrap;">
-      <a class="chip chip--safety" style="text-decoration:none; padding:10px 18px; font-size:11px;" href="cover.html">Open the cover →</a>
-      <a class="chip" style="text-decoration:none; padding:10px 18px; font-size:11px;" href="book.html">Print full book to PDF</a>
+<a class="skip-link" href="#hero-title">Skip to content</a>
+${navHtml("")}
+<header class="hero">
+  <div class="hero__main noise">
+    <div class="cover__brand reveal-on-load reveal-1">Food Opsec · Household Resilience Series</div>
+    <h1 id="hero-title" class="reveal-on-load reveal-2">The Emergency<br>Food Playbook</h1>
+    <p class="hero-dek reveal-on-load reveal-3">A practical American emergency-food system for households that
+    want <em>affordable meals</em> — not expensive survival buckets. What to buy, how much, what to eat first,
+    and how to cook when the power is out.</p>
+    <div class="hero__rule reveal-on-load reveal-3"></div>
+    <div class="hero__cta reveal-on-load reveal-4">
+      <a class="btn btn--primary" href="cover.html">Open the book</a>
+      <a class="btn btn--ghost" href="book.html">Full book — print / PDF</a>
     </div>
   </div>
-</section>
-<section class="sheet" style="min-height:auto;">
-  <div class="sheet__body"><div class="toc">${tocHtml}</div></div>
-</section>
+  <aside class="hero__side" aria-label="Book highlights">
+    <div class="hero__stat reveal-on-load reveal-2"><b>70 recipes</b><span>shelf-stable, each with water, fuel and dish counts — no-cook, hot-water and one-pot</span></div>
+    <div class="hero__stat reveal-on-load reveal-3"><b>30 days</b><span>menu system, power-outage timeline and rotation that pays for itself</span></div>
+    <div class="hero__stat reveal-on-load reveal-4"><b>10 playbooks</b><span>hurricanes to roadside kits — sourced to USDA · FEMA · CDC · EPA · FDA</span></div>
+  </aside>
+</header>
+<main class="land-toc">
+  <div class="panel will-reveal"><h2>The book</h2><div class="toc">${tocHtmlFirstHalf}</div></div>
+  <div class="panel will-reveal"><h2>Worksheets &amp; references</h2><div class="toc">${tocHtmlSecondHalf}</div></div>
+</main>
+${READER_JS.replace("querySelectorAll(\".will-reveal\")", "querySelectorAll(\".will-reveal, .hero__stat, .panel\")")}
 </body></html>`);
 
 console.log(`Built ${sheets.length} sheets across ${new Set(sheets.map(s => s.slug)).size} page files + full book.`);
