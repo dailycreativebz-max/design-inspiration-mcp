@@ -212,6 +212,7 @@ function expandPage(page) {
 }
 
 // ── Assemble ─────────────────────────────────────────────────────────────────
+export function assemble() {
 const rawPages = [
   ...FRONT_MATTER,
   ...CH_01_04, ...CH_05_07, ...CH_08, ...CH_09_11, ...CH_12_13,
@@ -259,7 +260,11 @@ tocSheet.body = `<div class="front"><h1>Contents</h1><div class="rule"></div>
 dish counts.</p>
 </div>`;
 
+return sheets;
+}
+
 // ── HTML rendering ───────────────────────────────────────────────────────────
+export function emit(sheets) {
 function sheetHtml(s, opts = {}) {
   const isCover = s.cls === "cover";
   const header = (!isCover && !opts.bare) ? `
@@ -324,7 +329,7 @@ writeFileSync(`${OUT}/book.html`, `<!DOCTYPE html>
 </head><body>
 ${navHtml}
 ${allSheets}
-<p class="fine muted" style="text-align:center; padding:20px;">End of book. Use your browser's Print → Save as PDF, paper size U.S. Letter, margins: none (the book supplies its own).</p>
+<p class="fine muted no-print" style="text-align:center; padding:20px;">End of book. Use your browser's Print → Save as PDF, paper size U.S. Letter, margins: none (the book supplies its own).</p>
 </body></html>`);
 
 // Landing / reader home (also carries commercial positioning copy)
@@ -372,3 +377,9 @@ ${navHtml}
 </body></html>`);
 
 console.log(`Built ${sheets.length} sheets across ${new Set(sheets.map(s => s.slug)).size} page files + full book.`);
+}
+
+import { pathToFileURL } from "node:url";
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  emit(assemble());
+}

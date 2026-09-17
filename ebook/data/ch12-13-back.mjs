@@ -105,7 +105,7 @@ regulatory decisions, consult the cited pages directly.</p>`,
 into the cart; write prices to track your real cost. Prices vary by region and season. Weeks 3–4 continue on the
 next page.</p>
 <table class="ws-table">
-  <thead><tr><th style="width:0.35in;">✓</th><th style="width:1.2in;">Week 1 — Ready</th><th style="width:0.35in;">✓</th><th>Week 1 notes</th></tr></thead>
+  <thead><tr><th style="width:0.42in;">Got it</th><th style="width:1.2in;">Week 1 — Ready</th><th style="width:0.42in;">Got it</th><th>Week 1 notes</th></tr></thead>
   <tbody>
     <tr><td><span class="ws-box"></span></td><td>Water: 2 cases bottled or 8 one-gallon jugs</td><td></td><td></td></tr>
     <tr><td><span class="ws-box"></span></td><td>2 manual can openers</td><td></td><td></td></tr>
@@ -119,7 +119,7 @@ next page.</p>
   </tbody>
 </table>
 <table class="ws-table">
-  <thead><tr><th style="width:0.35in;">✓</th><th style="width:1.2in;">Week 2 — Staples</th><th style="width:0.35in;">✓</th><th>Week 2 notes</th></tr></thead>
+  <thead><tr><th style="width:0.42in;">Got it</th><th style="width:1.2in;">Week 2 — Staples</th><th style="width:0.42in;">Got it</th><th>Week 2 notes</th></tr></thead>
   <tbody>
     <tr><td><span class="ws-box"></span></td><td>Instant rice (2 lb) + couscous (1 lb)</td><td></td><td></td></tr>
     <tr><td><span class="ws-box"></span></td><td>Quick oats (42 oz) + instant potatoes (2 boxes)</td><td></td><td></td></tr>
@@ -137,7 +137,7 @@ next page.</p>
     body: `
 <p class="small muted">Continued from the previous page. Week 3 buys flavor; Week 4 buys capability.</p>
 <table class="ws-table">
-  <thead><tr><th style="width:0.35in;">✓</th><th style="width:1.2in;">Week 3 — Flavor</th><th style="width:0.35in;">✓</th><th>Week 3 notes</th></tr></thead>
+  <thead><tr><th style="width:0.42in;">Got it</th><th style="width:1.2in;">Week 3 — Flavor</th><th style="width:0.42in;">Got it</th><th>Week 3 notes</th></tr></thead>
   <tbody>
     <tr><td><span class="ws-box"></span></td><td>Cooking oil (48 oz) + shortening (small)</td><td></td><td></td></tr>
     <tr><td><span class="ws-box"></span></td><td>3 jars pasta sauce + 1 jar salsa + mustard/relish</td><td></td><td></td></tr>
@@ -148,7 +148,7 @@ next page.</p>
   </tbody>
 </table>
 <table class="ws-table">
-  <thead><tr><th style="width:0.35in;">✓</th><th style="width:1.2in;">Week 4 — Capability</th><th style="width:0.35in;">✓</th><th>Week 4 notes</th></tr></thead>
+  <thead><tr><th style="width:0.42in;">Got it</th><th style="width:1.2in;">Week 4 — Capability</th><th style="width:0.42in;">Got it</th><th>Week 4 notes</th></tr></thead>
   <tbody>
     <tr><td><span class="ws-box"></span></td><td>Camp stove fuel (2 cylinders) or charcoal (1 bag)</td><td></td><td></td></tr>
     <tr><td><span class="ws-box"></span></td><td>Thermos / insulated vessel</td><td></td><td></td></tr>
@@ -165,7 +165,7 @@ next page.</p>
 <p class="small muted">Log every emergency item once, then keep it current during the monthly review. Mark
 location codes (P = pantry, C = closet, G = garage shelf, B = bin).</p>
 <table class="ws-table">
-  <thead><tr><th>Item</th><th style="width:0.7in;">Qty</th><th style="width:0.7in;">Loc.</th><th style="width:0.9in;">Bought</th><th style="width:0.9in;">Best-by</th><th style="width:0.9in;">Opened</th><th style="width:0.5in;">Score</th><th style="width:0.5in;">Use ✓</th></tr></thead>
+  <thead><tr><th>Item</th><th style="width:0.7in;">Qty</th><th style="width:0.7in;">Loc.</th><th style="width:0.9in;">Bought</th><th style="width:0.9in;">Best-by</th><th style="width:0.9in;">Opened</th><th style="width:0.5in;">Score</th><th style="width:0.5in;">Done</th></tr></thead>
   <tbody>${Array(16).fill("<tr>" + "<td></td>".repeat(8) + "</tr>").join("")}</tbody>
 </table>
 <p class="ws-note">Quarterly inspection: check cans for swelling/rust/deep dents, bags for pests and torn seals,
@@ -179,7 +179,7 @@ oils by smell. Anything failing goes to the front of the line to be eaten this w
 <p class="small muted">One line per item used. The golden rule: use one, replace one — same item, same size, on
 the next grocery run.</p>
 <table class="ws-table">
-  <thead><tr><th style="width:1in;">Date</th><th>Item used</th><th>Meal it went into</th><th style="width:1.3in;">Household score</th><th style="width:0.5in;">Replaced ✓</th></tr></thead>
+  <thead><tr><th style="width:1in;">Date</th><th>Item used</th><th>Meal it went into</th><th style="width:1.3in;">Household score</th><th style="width:0.5in;">Replaced</th></tr></thead>
   <tbody>${Array(14).fill("<tr>" + "<td></td>".repeat(5) + "</tr>").join("")}</tbody>
 </table>
 <table class="ws-table" style="margin-top:18px;">
@@ -195,7 +195,7 @@ the next grocery run.</p>
 <p class="small muted">Test every new item on an ordinary evening, before it earns shelf space. Score 1–5 per
 person; foods averaging below 4 do not get bought in quantity.</p>
 <table class="ws-table">
-  <thead><tr><th>Recipe / product</th><th style="width:1in;">Date</th><th style="width:1in;">Adult 1</th><th style="width:1in;">Adult 2</th><th style="width:1in;">Child 1</th><th style="width:1in;">Child 2</th><th style="width:1.6in;">Notes / tweaks</th><th style="width:0.7in;">Stock? ✓</th></tr></thead>
+  <thead><tr><th>Recipe / product</th><th style="width:1in;">Date</th><th style="width:1in;">Adult 1</th><th style="width:1in;">Adult 2</th><th style="width:1in;">Child 1</th><th style="width:1in;">Child 2</th><th style="width:1.6in;">Notes / tweaks</th><th style="width:0.7in;">Stock?</th></tr></thead>
   <tbody>${Array(12).fill("<tr>" + "<td></td>".repeat(8) + "</tr>").join("")}</tbody>
 </table>
 <p class="ws-note">Prompt the table with the same three questions every time: Would you eat this on a normal
@@ -215,7 +215,7 @@ preparation and sanitation. Add for heat, activity, pregnancy, illness, and pets
   <tr><td><strong>TOTALS</strong></td><td></td><td></td><td></td><td></td><td></td></tr></tbody>
 </table>
 <table class="ws-table" style="margin-top:14px;">
-  <thead><tr><th style="width:2.6in;">Adjustment</th><th>Applied? ✓</th></tr></thead>
+  <thead><tr><th style="width:2.6in;">Adjustment</th><th>Applied?</th></tr></thead>
   <tbody>
     <tr><td>Hot climate or summer planning — add up to 50%</td><td><span class="ws-box"></span></td></tr>
     <tr><td>Heavy physical work planned during the event</td><td><span class="ws-box"></span></td></tr>

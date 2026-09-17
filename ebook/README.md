@@ -16,8 +16,10 @@ U.S. Letter (8.5 × 11 in) HTML pages.
 | `DESIGN.md` | Design system spec + which MCP tools produced each decision |
 | `RESEARCH.md` | Source verification, accuracy corrections, completeness additions |
 | `SALES_COPY.md` | Commercial positioning and sales copy |
+| `The-Emergency-Food-Playbook.pdf` | The finished ebook as a true U.S. Letter PDF (75 pages) |
 | `data/*.mjs` | Content sources of truth: prose pages, 70 recipes, playbooks |
 | `build.mjs` | Static site generator (run `node ebook/build.mjs` from the repo root to rebuild) |
+| `tools/render_pdf.py` | PDF renderer (reportlab): `node ebook/build.mjs && node ebook/tools/dump-for-pdf.mjs && python3 ebook/tools/render_pdf.py` (needs `pip install reportlab`; bundled fonts in `tools/fonts/`, Libre Franklin + Source Serif 4, SIL OFL) |
 | `tools/mcp-client.mjs` | Minimal stdio client used to call this repo's MCP server during design |
 | `design/*.json` | Raw MCP outputs (tokens, typography, layouts, a11y) that informed the design |
 
