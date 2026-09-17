@@ -1,0 +1,55 @@
+{
+  "title": "Colour contrast requirements",
+  "wcag_level": "AA (minimum) / AAA (enhanced)",
+  "rules": [
+    {
+      "element": "Body text",
+      "requirement": "4.5:1 against background",
+      "level": "AA"
+    },
+    {
+      "element": "Large text (18px+ or 14px+ bold)",
+      "requirement": "3:1",
+      "level": "AA"
+    },
+    {
+      "element": "UI components (buttons, inputs, icons)",
+      "requirement": "3:1",
+      "level": "AA"
+    },
+    {
+      "element": "Body text enhanced",
+      "requirement": "7:1",
+      "level": "AAA"
+    },
+    {
+      "element": "Decorative elements",
+      "requirement": "None required",
+      "level": "exempt"
+    }
+  ],
+  "common_failures": [
+    {
+      "fail": "Grey text on white: #999 on #FFF = 2.85:1",
+      "fix": "Use #767676 minimum (#FFF bg)"
+    },
+    {
+      "fail": "Light placeholder text",
+      "fix": "Placeholder must also meet 4.5:1 — use ≥ #767676"
+    },
+    {
+      "fail": "Focus outline removed",
+      "fix": "Never remove :focus-visible outline"
+    },
+    {
+      "fail": "Colour as the only state indicator",
+      "fix": "Always pair colour with shape/icon/text"
+    }
+  ],
+  "tools": [
+    "https://webaim.org/resources/contrastchecker/",
+    "https://www.whocanuse.com/ (simulates vision impairments)",
+    "Chrome DevTools: Elements → Accessibility → Contrast"
+  ],
+  "css_snippet": "/* Ensure focus is always visible */\n:focus-visible {\n  outline: 2px solid var(--color-brand);\n  outline-offset: 2px;\n  border-radius: 2px;\n}\n/* Remove default but keep custom */\n:focus:not(:focus-visible) { outline: none; }"
+}

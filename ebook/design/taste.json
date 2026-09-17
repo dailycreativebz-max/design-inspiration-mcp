@@ -1,0 +1,26 @@
+{
+  "aesthetic": "editorial print",
+  "baselines": {
+    "DESIGN_VARIANCE": 8,
+    "MOTION_INTENSITY": 6,
+    "VISUAL_DENSITY": 4,
+    "ACCENT_ACCURACY": "Desaturated (< 80% saturation)",
+    "FORBIDDEN": [
+      "Emojis",
+      "Pure Black (#000000)",
+      "AI Purple/Blue aesthetic",
+      "Inter font",
+      "Generic names like 'John Doe'"
+    ]
+  },
+  "engineering_rules": [
+    "Deterministic Typography: Geist or Satoshi stack, tracking-tighter.",
+    "Liquid Glass Refraction: 1px inner border + subtle inner shadow.",
+    "Grid over Flex-Math: No complex flexbox percentage math, use CSS Grid.",
+    "Anti-Center Bias: Use asymmetric layouts for Variance > 4.",
+    "Viewport Stability: NEVER use h-screen, ALWAYS use min-h-[100dvh].",
+    "Anti-Emoji Policy: NEVER use emojis in code, markup, text content, or alt text.",
+    "Data & Forms: Label MUST sit above input. Error text below input."
+  ],
+  "recommended_stack": "React/Next.js + Tailwind v4 + Framer Motion"
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Full-bleed Gradient Hero",
+    "type": "hero",
+    "framework": "html-css",
+    "description": "Full-viewport hero with gradient background, centered headline, subtext, and CTA button. The most common landing page opener.",
+    "use_cases": "SaaS landing pages, startup homepages, product launches",
+    "html": "<section class=\"hero\">\n  <div class=\"hero-content\">\n    <h1 class=\"hero-title\">Your Bold Headline Here</h1>\n    <p class=\"hero-sub\">Supporting text that clarifies the value proposition in one or two sentences.</p>\n    <div class=\"hero-cta\">\n      <a href=\"#\" class=\"btn-primary\">Get Started Free</a>\n      <a href=\"#\" class=\"btn-ghost\">Watch Demo →</a>\n    </div>\n  </div>\n</section>",
+    "css": ".hero {\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: radial-gradient(ellipse at 50% 0%, rgba(108,99,255,0.3) 0%, transparent 70%),\n              radial-gradient(ellipse at 80% 80%, rgba(255,99,108,0.15) 0%, transparent 50%),\n              #0A0A0F;\n  padding: 2rem;\n}\n.hero-content {\n  text-align: center;\n  max-width: 720px;\n}\n.hero-title {\n  font-size: clamp(2.5rem, 6vw, 5rem);\n  font-weight: 800;\n  letter-spacing: -0.04em;\n  line-height: 1.05;\n  color: #fff;\n  margin-bottom: 1.5rem;\n}\n.hero-sub {\n  font-size: 1.25rem;\n  color: rgba(255,255,255,0.6);\n  line-height: 1.7;\n  margin-bottom: 2.5rem;\n}\n.hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }\n.btn-primary {\n  padding: 0.875rem 2rem;\n  background: #6C63FF;\n  color: #fff;\n  border-radius: 8px;\n  font-weight: 600;\n  text-decoration: none;\n  transition: opacity 0.2s;\n}\n.btn-primary:hover { opacity: 0.85; }\n.btn-ghost {\n  padding: 0.875rem 2rem;\n  border: 1px solid rgba(255,255,255,0.2);\n  color: rgba(255,255,255,0.8);\n  border-radius: 8px;\n  font-weight: 500;\n  text-decoration: none;\n}"
+  },
+  {
+    "name": "Split Hero — Text + App Mockup",
+    "type": "hero",
+    "framework": "html-css",
+    "description": "Two-column hero with text on left and product screenshot/mockup on right. Industry standard for SaaS.",
+    "use_cases": "SaaS products, productivity apps, developer tools",
+    "html": "<section class=\"split-hero\">\n  <div class=\"split-text\">\n    <span class=\"badge\">Now in Beta</span>\n    <h1>The Modern Way to <em>Build Faster</em></h1>\n    <p>Describe your product benefit in two compelling sentences. Focus on outcomes, not features.</p>\n    <a href=\"#\" class=\"cta-btn\">Start for Free →</a>\n  </div>\n  <div class=\"split-visual\">\n    <div class=\"app-mockup\">\n      <!-- Product screenshot or UI mockup -->\n    </div>\n  </div>\n</section>",
+    "css": ".split-hero {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 4rem;\n  align-items: center;\n  min-height: 100vh;\n  padding: 6rem 5%;\n  max-width: 1280px;\n  margin: 0 auto;\n}\n.split-text h1 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }\n.split-text p { color: #666; font-size: 1.1rem; line-height: 1.7; margin: 1.5rem 0; }\n.badge {\n  display: inline-block;\n  padding: 0.25rem 0.75rem;\n  background: rgba(108,99,255,0.1);\n  color: #6C63FF;\n  border: 1px solid rgba(108,99,255,0.3);\n  border-radius: 100px;\n  font-size: 0.8rem;\n  font-weight: 600;\n  margin-bottom: 1.5rem;\n}\n.app-mockup {\n  background: #111;\n  border-radius: 12px;\n  aspect-ratio: 16/10;\n  border: 1px solid rgba(255,255,255,0.08);\n  box-shadow: 0 50px 100px rgba(0,0,0,0.4);\n}\n@media (max-width: 768px) { .split-hero { grid-template-columns: 1fr; } }"
+  },
+  {
+    "name": "Bento Feature Grid",
+    "type": "bento",
+    "framework": "html-css",
+    "description": "Apple-style asymmetric grid with cards of varying sizes. Each card highlights one feature.",
+    "use_cases": "Feature showcases, product pages, about pages",
+    "html": "<section class=\"bento-section\">\n  <div class=\"bento-grid\">\n    <div class=\"bento-card bento-hero\">\n      <h2>The headline feature</h2>\n      <p>This card spans the full width and holds your most important feature.</p>\n    </div>\n    <div class=\"bento-card bento-tall\">\n      <div class=\"feature-icon\">⚡</div>\n      <h3>Fast</h3>\n      <p>Description of this specific feature.</p>\n    </div>\n    <div class=\"bento-card\">\n      <div class=\"feature-icon\">🔒</div>\n      <h3>Secure</h3>\n      <p>Short feature description.</p>\n    </div>\n    <div class=\"bento-card\">\n      <div class=\"feature-icon\">🎯</div>\n      <h3>Precise</h3>\n      <p>Short feature description.</p>\n    </div>\n    <div class=\"bento-card bento-wide\">\n      <h3>Integrates with everything</h3>\n      <p>Full-width card for a secondary major feature.</p>\n    </div>\n  </div>\n</section>",
+    "css": ".bento-section { padding: 6rem 5%; max-width: 1280px; margin: 0 auto; }\n.bento-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 16px;\n}\n.bento-card {\n  background: #111;\n  border: 1px solid rgba(255,255,255,0.07);\n  border-radius: 16px;\n  padding: 2rem;\n  transition: border-color 0.2s;\n}\n.bento-card:hover { border-color: rgba(108,99,255,0.4); }\n.bento-hero { grid-column: span 3; background: linear-gradient(135deg, #1a0a2e, #2d1b69); }\n.bento-wide { grid-column: span 2; }\n.bento-tall { grid-row: span 2; }\n.feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }\n.bento-card h2, .bento-card h3 { color: #fff; font-weight: 700; margin-bottom: 0.75rem; }\n.bento-card p { color: rgba(255,255,255,0.5); font-size: 0.95rem; line-height: 1.6; }"
+  },
+  {
+    "name": "Fullscreen Video/Image Section",
+    "type": "fullscreen",
+    "framework": "html-css",
+    "description": "Full-viewport immersive section with content overlaid on a video or image background.",
+    "use_cases": "Agency landing pages, cinematic portfolios, event sites",
+    "html": "<section class=\"fullscreen-section\">\n  <video class=\"bg-video\" autoplay muted loop playsinline>\n    <source src=\"hero.mp4\" type=\"video/mp4\">\n  </video>\n  <div class=\"video-overlay\"></div>\n  <div class=\"video-content\">\n    <h1>We Build Digital Experiences</h1>\n    <p>Creative studio based in New York</p>\n    <a href=\"#work\" class=\"scroll-cta\">↓ See Our Work</a>\n  </div>\n</section>",
+    "css": ".fullscreen-section {\n  position: relative;\n  width: 100%;\n  height: 100vh;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.bg-video {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\n.video-overlay {\n  position: absolute;\n  inset: 0;\n  background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.7) 100%);\n}\n.video-content {\n  position: relative;\n  z-index: 1;\n  text-align: center;\n  color: #fff;\n}\n.video-content h1 {\n  font-size: clamp(2.5rem, 6vw, 7rem);\n  font-weight: 800;\n  letter-spacing: -0.04em;\n}"
+  },
+  {
+    "name": "Card Stack Grid",
+    "type": "card-stack",
+    "framework": "html-css",
+    "description": "Responsive card grid for pricing, team, or portfolio items. Cards elevate on hover.",
+    "use_cases": "Pricing pages, team pages, portfolio grids, blog posts",
+    "html": "<section class=\"cards-section\">\n  <div class=\"cards-grid\">\n    <div class=\"card\">\n      <div class=\"card-header\">Starter</div>\n      <div class=\"card-price\">$9<span>/mo</span></div>\n      <ul class=\"card-features\">\n        <li>✓ Feature one</li>\n        <li>✓ Feature two</li>\n        <li>✓ Feature three</li>\n      </ul>\n      <a href=\"#\" class=\"card-cta\">Get Started</a>\n    </div>\n    <!-- Repeat for other cards -->\n  </div>\n</section>",
+    "css": ".cards-section { padding: 6rem 5%; max-width: 1280px; margin: 0 auto; }\n.cards-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\n  gap: 1.5rem;\n}\n.card {\n  background: #111;\n  border: 1px solid rgba(255,255,255,0.08);\n  border-radius: 16px;\n  padding: 2.5rem;\n  transition: transform 0.25s ease, box-shadow 0.25s ease;\n}\n.card:hover {\n  transform: translateY(-6px);\n  box-shadow: 0 20px 60px rgba(0,0,0,0.4);\n}\n.card.featured {\n  background: #6C63FF;\n  border-color: transparent;\n}"
+  },
+  {
+    "name": "Magazine Two-Column",
+    "type": "magazine",
+    "framework": "html-css",
+    "description": "Editorial magazine-style layout with large headline and body text in offset columns.",
+    "use_cases": "Blogs, editorial content, case studies, long-form pages",
+    "html": "<article class=\"magazine-layout\">\n  <div class=\"mag-header\">\n    <span class=\"mag-category\">Design</span>\n    <h1 class=\"mag-title\">The headline can span<br>multiple lines boldly</h1>\n  </div>\n  <div class=\"mag-content\">\n    <div class=\"mag-col-left\">\n      <img src=\"story-image.jpg\" alt=\"\" class=\"mag-image\">\n    </div>\n    <div class=\"mag-col-right\">\n      <p class=\"mag-lead\">Large lead paragraph that introduces the story. First paragraph is always larger and sets the tone.</p>\n      <p>Regular body copy follows here. Continue the story with the standard font size and line height.</p>\n    </div>\n  </div>\n</article>",
+    "css": ".magazine-layout { max-width: 1280px; margin: 0 auto; padding: 4rem 5%; }\n.mag-title {\n  font-size: clamp(3rem, 7vw, 7rem);\n  font-weight: 900;\n  letter-spacing: -0.04em;\n  line-height: 0.95;\n  margin: 1rem 0 3rem;\n}\n.mag-content {\n  display: grid;\n  grid-template-columns: 55% 1fr;\n  gap: 4rem;\n  align-items: start;\n}\n.mag-image { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; }\n.mag-lead { font-size: 1.35rem; line-height: 1.6; font-weight: 300; margin-bottom: 1.5rem; }"
+  }
+]
